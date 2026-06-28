@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Kaizen VPS Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+
+    <!-- ========== LOGIN SCREEN ========== -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card glass-card">
+            <div style="margin-bottom: 1.5rem;">
+                <div style="width: 3rem; height: 3rem; border-radius: 0.75rem; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                    <svg width="24" height="24" fill="none" stroke="white" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="login-title">Admin Panel</h2>
+            <p class="login-subtitle">Kaizen VPS Server — Manage your plans</p>
+            <form id="loginForm">
+                <input type="password" id="adminPassword" class="login-input" placeholder="Enter admin password" required autocomplete="current-password">
+                <div id="loginError" class="login-error"></div>
+                <button type="submit" class="btn btn-cyan" style="width: 100%; padding: 0.75rem;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                    </svg>
+                    Login
+                </button>
+            </form>
+            <p style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">Default password: kaizen2024</p>
+        </div>
+    </div>
+
+
+    <!-- ========== ADMIN LAYOUT ========== -->
+    <div id="adminLayout" class="admin-layout">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-brand">
+                <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green)); display: flex; align-items: center; justify-content: center;">
+                    <svg width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/>
+                    </svg>
+                </div>
+                <span>Kaizen Admin</span>
+            </div>
+            <div class="admin-header-actions">
+                <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    View Site
+                </a>
+                <button onclick="logout()" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3);">
+                    Logout
+                </button>
+            </div>
+        </header>
+
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Stats Row -->
+            <div class="admin-stats">
+                <div class="admin-stat-card glass-card">
+                    <div class="admin-stat-value" id="statTotal">0</div>
+                    <div class="admin-stat-label">Total Plans</div>
+                </div>
+                <div class="admin-stat-card glass-card">
+                    <div class="admin-stat-value" id="statBandwidth" style="color: var(--accent-cyan);">0</div>
+                    <div class="admin-stat-label">Bandwidth Limit</div>
+                </div>
+                <div class="admin-stat-card glass-card">
+                    <div class="admin-stat-value" id="statUnlimited" style="color: var(--accent-green);">0</div>
+                    <div class="admin-stat-label">Unlimited BW</div>
+                </div>
+                <div class="admin-stat-card glass-card">
+                    <div class="admin-stat-value" id="statRenewal" style="color: var(--accent-orange);">0</div>
+                    <div class="admin-stat-label">Renewal</div>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="admin-toolbar">
+                <button onclick="openAddModal()" class="btn btn-cyan" style="padding: 0.6rem 1.25rem;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Plan
+                </button>
+                <button onclick="exportPlans()" class="btn btn-outline" style="padding: 0.6rem 1.25rem;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Export JSON
+                </button>
+                <button onclick="importPlans()" class="btn btn-outline" style="padding: 0.6rem 1.25rem;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                    </svg>
+                    Import JSON
+                </button>
+                <button onclick="resetToDefaults()" class="btn" style="padding: 0.6rem 1.25rem; background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2);">
+                    Reset Defaults
+                </button>
+            </div>
+
+
+            <!-- Plans Table -->
+            <div class="admin-section-title">
+                <span>All Plans</span>
+            </div>
+            <div class="admin-table-wrapper glass-card">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>RAM</th>
+                            <th>CPU</th>
+                            <th>Storage</th>
+                            <th>Bandwidth</th>
+                            <th>Validity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="plansTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ========== ADD/EDIT MODAL ========== -->
+    <div class="modal-overlay" id="planModal">
+        <div class="modal-card">
+            <h3 class="modal-title" id="modalTitle">Add New Plan</h3>
+            <form id="planForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Plan Name</label>
+                        <input type="text" id="formName" class="form-input" placeholder="e.g. DO1" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="formCategory" class="form-select" required>
+                            <option value="bandwidth">Bandwidth Limit</option>
+                            <option value="unlimited">Unlimited Bandwidth</option>
+                            <option value="renewal">Renewal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Price</label>
+                        <input type="number" id="formPrice" class="form-input" placeholder="350" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <input type="text" id="formCurrency" class="form-input" placeholder="₹" value="₹">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Badge</label>
+                        <select id="formBadge" class="form-select">
+                            <option value="">None</option>
+                            <option value="popular">POPULAR</option>
+                            <option value="best">BEST OFFER</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Locations (comma-separated)</label>
+                        <input type="text" id="formLocations" class="form-input" placeholder="🇺🇸 USA, 🇮🇳 India, 🇸🇬 Singapore" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">RAM</label>
+                        <input type="text" id="formRam" class="form-input" placeholder="8 GB" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CPU</label>
+                        <input type="text" id="formCpu" class="form-input" placeholder="4 Core" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Storage</label>
+                        <input type="text" id="formStorage" class="form-input" placeholder="160 GB NVMe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bandwidth</label>
+                        <input type="text" id="formBandwidth" class="form-input" placeholder="5 TB" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Latency</label>
+                        <input type="text" id="formLatency" class="form-input" placeholder="95 ms" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Speed</label>
+                        <input type="text" id="formSpeed" class="form-input" placeholder="Up to 2 Gbps" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Validity</label>
+                        <input type="text" id="formValidity" class="form-input" placeholder="30 Days" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Warranty</label>
+                        <input type="text" id="formWarranty" class="form-input" placeholder="15 Days" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-cyan" style="flex: 1;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Save Plan
+                    </button>
+                    <button type="button" onclick="closeModal()" class="btn btn-outline" style="flex: 1;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script src="js/plans-data.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
