@@ -234,12 +234,7 @@ function importPlans() {
     input.click();
 }
 
-function resetToDefaults() {
-    if (!confirm('Reset all plans to defaults? This will remove any custom changes.')) return;
-    resetPlans();
-    refreshAdminView();
-    showAdminToast('Plans reset to defaults');
-}
+
 
 // === HELPERS ===
 function generateId() {
