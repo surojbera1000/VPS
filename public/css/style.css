@@ -1,0 +1,33 @@
+/* ========================================
+   Kaizen VPS Server - Global Styles
+   ======================================== */
+:root {
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #0f1629;
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-cyan: #00a3ff;
+    --accent-green: #2dd4bf;
+    --accent-orange: #f59e0b;
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(0, 163, 255, 0.3);
+    --glow-cyan: 0 0 20px rgba(0, 163, 255, 0.15);
+    --glow-green: 0 0 20px rgba(45, 212, 191, 0.2);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.5rem;
+    --font-family: 'Inter', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
