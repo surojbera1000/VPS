@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+/* eslint-disable react-hooks/exhaustive-deps */
 
 export default function AdminPanel() {
   const [loggedIn, setLoggedIn] = useState(false);
