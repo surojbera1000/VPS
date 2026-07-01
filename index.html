@@ -331,7 +331,7 @@
 
 
     <!-- PLANS SECTION -->
-    <section id="plans" class="py-16 px-3 relative">
+    <section id="plans" class="py-12 px-2 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-8 fade-in">
                 <h2 class="text-4xl md:text-5xl font-black mb-4">
@@ -340,7 +340,7 @@
                 <p class="text-gray-400 text-lg max-w-2xl mx-auto">Choose the perfect plan for your needs. All plans include premium features and dedicated support.</p>
             </div>
 
-            <div id="plans-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div id="plans-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 <!-- Loading skeleton -->
                 <div class="shimmer rounded-2xl h-96"></div>
                 <div class="shimmer rounded-2xl h-96"></div>
@@ -457,7 +457,7 @@
                     const specsText = plan.specs ? Object.entries(plan.specs).map(([k,v])=>`${specLabels[k]||k}: ${v}`).join(' | ') : '';
                     
                     return `
-                    <div class="plan-card rounded-2xl p-5 flex flex-col fade-in relative overflow-hidden">
+                    <div class="plan-card rounded-2xl p-4 flex flex-col fade-in relative overflow-hidden">
                         <!-- Top badge -->
                         ${plan.badge === 'popular' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-amber to-orange-500 text-black tracking-wider">⭐ POPULAR</span></div>' : ''}
                         ${plan.badge === 'best' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-mint to-emerald-500 text-black tracking-wider">🔥 BEST OFFER</span></div>' : ''}
