@@ -162,36 +162,18 @@
         }
 
         /* COMPACT MOBILE STYLES */
-        #plans {
-            padding: 10px 8px !important;
-        }
         #plans-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        .plan-card {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 18px 14px !important;
-        }
-        .plan-card .spec-row,
-        .plan-card [class*="border-b"] {
-            padding-top: 6px !important;
-            padding-bottom: 6px !important;
         }
         @media (min-width: 768px) {
             #plans-container {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
-            .plan-card { max-width: none; }
-            #plans { padding: 40px 16px !important; }
         }
         @media (min-width: 1024px) {
             #plans-container { grid-template-columns: repeat(3, 1fr); }
@@ -367,16 +349,16 @@
 
 
     <!-- PLANS SECTION -->
-    <section id="plans" class="py-12 px-2 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-8 fade-in">
-                <h2 class="text-4xl md:text-5xl font-black mb-4">
+    <section id="plans" style="padding:10px 6px;">
+        <div>
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-black mb-2">
                     Server <span class="gradient-text">Plans</span>
                 </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Choose the perfect plan for your needs. All plans include premium features and dedicated support.</p>
+                <p class="text-gray-400 text-sm">Choose the perfect plan for your needs.</p>
             </div>
 
-            <div id="plans-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div id="plans-container" style="display:flex;flex-direction:column;gap:10px;width:100%;">
                 <!-- Loading skeleton -->
                 <div class="shimmer rounded-2xl h-96"></div>
                 <div class="shimmer rounded-2xl h-96"></div>
@@ -493,7 +475,7 @@
                     const specsText = plan.specs ? Object.entries(plan.specs).map(([k,v])=>`${specLabels[k]||k}: ${v}`).join(' | ') : '';
                     
                     return `
-                    <div class="plan-card rounded-2xl p-4 flex flex-col fade-in relative overflow-hidden">
+                    <div class="plan-card rounded-2xl flex flex-col fade-in relative overflow-hidden" style="padding:16px 12px;width:100%;margin:0 auto;max-width:100%;">
                         <!-- Top badge -->
                         ${plan.badge === 'popular' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-amber to-orange-500 text-black tracking-wider">⭐ POPULAR</span></div>' : ''}
                         ${plan.badge === 'best' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-mint to-emerald-500 text-black tracking-wider">🔥 BEST OFFER</span></div>' : ''}
@@ -523,7 +505,7 @@
                         ${plan.specs ? `
                         <div class="flex-1 mb-5 space-y-0">
                             ${Object.entries(plan.specs).map(([key, value]) => `
-                                <div class="flex justify-between items-center py-2.5 border-b border-white/5 last:border-0">
+                                <div class="flex justify-between items-center border-b border-white/5" style="padding:7px 0;">
                                     <span class="flex items-center gap-2 text-gray-400 text-sm"><span class="text-base">${specEmojis[key]||'📌'}</span> ${specLabels[key]||key}</span>
                                     <span class="text-white font-semibold text-sm">${value}</span>
                                 </div>
