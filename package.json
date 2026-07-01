@@ -1,6 +1,6 @@
 {
-  "name": "kaizen-vps-server",
-  "version": "1.0.0",
+  "name": "kaizen-vps",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "mongodb": "^6.3.0",
-    "next": "^14.1.0",
+    "next": "14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

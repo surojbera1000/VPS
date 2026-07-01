@@ -1,0 +1,37 @@
+.main{min-height:100vh}
+.hero{padding:4rem 1rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:rgba(0,163,255,0.06);border-radius:50%;filter:blur(80px)}
+.heroContent{position:relative;max-width:700px;margin:0 auto}
+.badge{display:inline-block;padding:0.5rem 1rem;border-radius:9999px;border:1px solid rgba(245,158,11,0.4);background:rgba(245,158,11,0.1);color:#f59e0b;font-size:0.85rem;margin-bottom:1.5rem}
+.headline{font-size:clamp(2rem,6vw,4rem);font-weight:800;background:linear-gradient(135deg,#00a3ff,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+.subtext{color:#94a3b8;font-size:1.1rem;margin-bottom:2rem}
+.buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btnCyan{padding:0.8rem 2rem;border-radius:0.75rem;background:linear-gradient(135deg,#00a3ff,#0077cc);color:#fff;font-weight:600;text-decoration:none}
+.btnCyan:hover{box-shadow:0 0 20px rgba(0,163,255,0.4)}
+.btnOutline{padding:0.8rem 2rem;border-radius:0.75rem;border:1px solid rgba(0,163,255,0.4);color:#00a3ff;font-weight:600;text-decoration:none}
+.statsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:800px;margin:0 auto;padding:2rem 1rem}
+.statCard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:1rem;padding:1.5rem;text-align:center;box-shadow:0 0 15px rgba(0,163,255,0.1)}
+.statNum{font-size:2rem;font-weight:700;color:#00a3ff}
+.statLabel{font-size:0.8rem;color:#94a3b8;margin-top:0.25rem}
+.plansSection{padding:3rem 1rem;max-width:1100px;margin:0 auto}
+.plansTitle{text-align:center;font-size:2rem;margin-bottom:2rem}
+.plansGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.planCard{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:1.25rem;padding:1.5rem;position:relative;transition:all 0.3s}
+.planCard:hover{border-color:rgba(0,163,255,0.3);transform:translateY(-2px);box-shadow:0 0 25px rgba(0,163,255,0.1)}
+.badgePopular{position:absolute;top:-0.6rem;left:1.5rem;background:#f59e0b;color:#000;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:9999px;text-transform:uppercase}
+.badgeBest{position:absolute;top:-0.6rem;left:1.5rem;background:#2dd4bf;color:#000;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:9999px;text-transform:uppercase}
+.planName{font-size:1.4rem;font-weight:700;margin:0.5rem 0 0.25rem}
+.planPrice{font-size:1.8rem;font-weight:700;color:#f59e0b;margin-bottom:0.75rem}
+.planPrice span{font-size:0.8rem;color:#94a3b8;font-weight:400}
+.planLocs{font-size:0.9rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.specs{margin-bottom:1rem}
+.specRow{display:flex;justify-content:space-between;padding:0.35rem 0;font-size:0.85rem}
+.specRow span:first-child{color:#94a3b8}
+.planMeta{display:flex;gap:0.75rem;margin-bottom:1rem;font-size:0.8rem;text-align:center}
+.planMeta div{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.4rem}
+.planMeta small{color:#94a3b8;font-size:0.65rem}
+.btnGreen{display:block;text-align:center;padding:0.7rem;border-radius:0.75rem;background:rgba(45,212,191,0.15);border:1px solid rgba(45,212,191,0.4);color:#2dd4bf;font-weight:600;text-decoration:none}
+.btnGreen:hover{background:rgba(45,212,191,0.25)}
+.footer{text-align:center;padding:2rem;color:#64748b;font-size:0.8rem;border-top:1px solid rgba(255,255,255,0.05)}
+.floatingBtn{position:fixed;bottom:1.5rem;right:1.5rem;background:#2dd4bf;color:#000;font-weight:600;padding:0.7rem 1.2rem;border-radius:9999px;text-decoration:none;font-size:0.85rem;box-shadow:0 0 15px rgba(45,212,191,0.4);z-index:50}
+@media(min-width:768px){.statsGrid{grid-template-columns:repeat(4,1fr)}}
