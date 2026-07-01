@@ -1,84 +1,522 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kaizen VPS Server - Premium VPS & RDP Hosting</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Inter,sans-serif;background:#0a0e1a;color:#fff;min-height:100vh}
-a{text-decoration:none;color:inherit}
-.hero{padding:4rem 1rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:rgba(0,163,255,0.06);border-radius:50%;filter:blur(80px)}
-.hero-content{position:relative;max-width:700px;margin:0 auto}
-.badge{display:inline-block;padding:0.5rem 1rem;border-radius:9999px;border:1px solid rgba(245,158,11,0.4);background:rgba(245,158,11,0.1);color:#f59e0b;font-size:0.85rem;margin-bottom:1.5rem}
-.headline{font-size:clamp(2rem,6vw,4rem);font-weight:800;background:linear-gradient(135deg,#00a3ff,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
-.subtext{color:#94a3b8;font-size:1.1rem;margin-bottom:2rem}
-.buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-cyan{padding:0.8rem 2rem;border-radius:0.75rem;background:linear-gradient(135deg,#00a3ff,#0077cc);color:#fff;font-weight:600}
-.btn-outline{padding:0.8rem 2rem;border-radius:0.75rem;border:1px solid rgba(0,163,255,0.4);color:#00a3ff;font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:800px;margin:0 auto;padding:2rem 1rem}
-.stat{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:1rem;padding:1.5rem;text-align:center;box-shadow:0 0 15px rgba(0,163,255,0.1)}
-.stat-num{font-size:2rem;font-weight:700;color:#00a3ff}
-.stat-lbl{font-size:0.8rem;color:#94a3b8}
-.plans{padding:3rem 1rem;max-width:1100px;margin:0 auto}
-.plans-title{text-align:center;font-size:2rem;margin-bottom:2rem}
-.plans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
-.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:1.25rem;padding:1.5rem;position:relative;transition:all 0.3s}
-.card:hover{border-color:rgba(0,163,255,0.3);transform:translateY(-2px)}
-.card-badge{position:absolute;top:-0.6rem;left:1.5rem;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:9999px;text-transform:uppercase}
-.badge-pop{background:#f59e0b;color:#000}
-.badge-best{background:#2dd4bf;color:#000}
-.card-name{font-size:1.4rem;font-weight:700;margin:0.5rem 0 0.25rem}
-.card-price{font-size:1.8rem;font-weight:700;color:#f59e0b;margin-bottom:0.75rem}
-.card-price span{font-size:0.8rem;color:#94a3b8;font-weight:400}
-.card-locs{font-size:0.9rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.08)}
-.spec-row{display:flex;justify-content:space-between;padding:0.35rem 0;font-size:0.85rem}
-.spec-row span:first-child{color:#94a3b8}
-.card-meta{display:flex;gap:0.75rem;margin:1rem 0;font-size:0.8rem;text-align:center}
-.card-meta div{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:0.4rem}
-.card-meta small{color:#94a3b8;font-size:0.65rem}
-.btn-green{display:block;text-align:center;padding:0.7rem;border-radius:0.75rem;background:rgba(45,212,191,0.15);border:1px solid rgba(45,212,191,0.4);color:#2dd4bf;font-weight:600}
-.footer{text-align:center;padding:2rem;color:#64748b;font-size:0.8rem;border-top:1px solid rgba(255,255,255,0.05)}
-.fab{position:fixed;bottom:1.5rem;right:1.5rem;background:#2dd4bf;color:#000;font-weight:600;padding:0.7rem 1.2rem;border-radius:9999px;font-size:0.85rem;box-shadow:0 0 15px rgba(45,212,191,0.4);z-index:50}
-.empty{text-align:center;grid-column:1/-1;color:#94a3b8;padding:3rem}
-@media(min-width:768px){.stats{grid-template-columns:repeat(4,1fr)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen VPS Server - Premium VPS & RDP Hosting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 'inter': ['Inter', 'sans-serif'] },
+                    colors: {
+                        navy: { DEFAULT: '#0a0e1a', light: '#111827', card: '#0f1629' },
+                        cyan: { DEFAULT: '#00a3ff', dark: '#0077cc' },
+                        mint: { DEFAULT: '#2dd4bf' },
+                        amber: { DEFAULT: '#f59e0b' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #0a0e1a; }
+
+        /* Animated gradient background */
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 25%, #0a0e1a 50%, #091520 75%, #0a0e1a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+        .orb-1 { width: 400px; height: 400px; background: #00a3ff; top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 300px; height: 300px; background: #2dd4bf; bottom: -50px; right: -50px; animation-delay: -4s; }
+        .orb-3 { width: 250px; height: 250px; background: #f59e0b; top: 50%; left: 50%; animation-delay: -2s; opacity: 0.15; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(15, 22, 41, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 163, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 163, 255, 0.1), 0 0 30px rgba(0, 163, 255, 0.05);
+        }
+
+        /* Neon glow borders */
+        .neon-border {
+            position: relative;
+            overflow: hidden;
+        }
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00a3ff, transparent);
+            transition: left 0.6s ease;
+        }
+        .neon-border:hover::before { left: 100%; }
+
+        /* Pulse animation for telegram button */
+        .pulse-ring {
+            animation: pulseRing 2s infinite;
+        }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(45, 212, 191, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Counter animation */
+        .counter { display: inline-block; }
+
+        /* Plan card specific */
+        .plan-card {
+            background: linear-gradient(145deg, rgba(15, 22, 41, 0.9), rgba(10, 14, 26, 0.95));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .plan-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(245, 158, 11, 0.08), 0 0 40px rgba(0, 163, 255, 0.05);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #00a3ff, #2dd4bf, #00a3ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGradient 4s linear infinite;
+        }
+        @keyframes textGradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Shimmer loading */
+        .shimmer {
+            background: linear-gradient(90deg, rgba(15, 22, 41, 0.5) 25%, rgba(30, 40, 60, 0.5) 50%, rgba(15, 22, 41, 0.5) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0e1a; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* Grid pattern */
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
 </head>
-<body>
-<section class="hero"><div class="hero-content">
-  <div class="badge">⭐ Trusted by 5000+ Customers Worldwide</div>
-  <h1 class="headline">Premium VPS & RDP Hosting</h1>
-  <p class="subtext">Trusted by developers, traders, and businesses worldwide.</p>
-  <div class="buttons"><a href="#plans" class="btn-cyan">View Server Plans</a><a href="https://t.me/Senkaizen" target="_blank" class="btn-outline">Contact on Telegram</a></div>
-</div></section>
+<body class="text-white overflow-x-hidden">
 
-<section class="stats">
-  <div class="stat"><div class="stat-num">4+</div><div class="stat-lbl">Years Experience</div></div>
-  <div class="stat"><div class="stat-num">5000+</div><div class="stat-lbl">Servers Sold</div></div>
-  <div class="stat"><div class="stat-num">99.9%</div><div class="stat-lbl">Uptime</div></div>
-  <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Support</div></div>
-</section>
 
-<section class="plans" id="plans">
-  <h2 class="plans-title"><span style="color:#00a3ff">Server</span> Plans</h2>
-  <div class="plans-grid" id="grid"></div>
-</section>
+    <!-- HERO SECTION -->
+    <section class="hero-gradient relative min-h-screen flex items-center justify-center grid-pattern">
+        <!-- Animated orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
 
-<footer class="footer"><p>Kaizen VPS Server &copy; 2024</p></footer>
-<a href="https://t.me/Senkaizen" target="_blank" class="fab">💬 Chat on Telegram</a>
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <!-- Badge -->
+            <div class="fade-in inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan/10 to-mint/10 border border-cyan/20 mb-8">
+                <span class="w-2 h-2 bg-mint rounded-full animate-pulse"></span>
+                <span class="text-sm font-medium text-gray-300">Trusted by <span class="text-cyan font-bold">5000+</span> Customers</span>
+            </div>
 
-<script>
-fetch("/api/plans").then(r=>r.json()).then(plans=>{
-  const g=document.getElementById("grid");
-  if(!plans.length){g.innerHTML='<div class="empty">Plans coming soon! Contact us on Telegram.</div>';return;}
-  g.innerHTML=plans.map(p=>{
-    const bhtml=p.badge==="popular"?'<div class="card-badge badge-pop">POPULAR</div>':p.badge==="best"?'<div class="card-badge badge-best">BEST OFFER</div>':"";
-    const bwColor=(p.specs?.bandwidth||"").includes("Unlimited")?"color:#2dd4bf":"";
-    return `<div class="card">${bhtml}<h3 class="card-name">${p.name}</h3><div class="card-price">${p.currency||"₹"}${p.price}<span>/month</span></div><div class="card-locs">${(p.locations||[]).join("  ")}</div><div><div class="spec-row"><span>RAM</span><span>${p.specs?.ram||""}</span></div><div class="spec-row"><span>CPU</span><span>${p.specs?.cpu||""}</span></div><div class="spec-row"><span>Storage</span><span>${p.specs?.storage||""}</span></div><div class="spec-row"><span>Bandwidth</span><span style="${bwColor}">${p.specs?.bandwidth||""}</span></div><div class="spec-row"><span>Latency</span><span>${p.specs?.latency||""}</span></div><div class="spec-row"><span>Speed</span><span>${p.specs?.speed||""}</span></div></div><div class="card-meta"><div><small>Validity</small><br>${p.validity||""}</div><div><small>Warranty</small><br>${p.warranty||""}</div></div><a href="https://t.me/Senkaizen" target="_blank" class="btn-green">DM to Buy</a></div>`;
-  }).join("");
-}).catch(()=>{document.getElementById("grid").innerHTML='<div class="empty">Contact us on Telegram for plans.</div>';});
-</script>
+            <!-- Headline -->
+            <h1 class="fade-in text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight">
+                <span class="gradient-text">Premium VPS</span><br>
+                <span class="text-white">&amp; RDP Hosting</span>
+            </h1>
+
+            <!-- Subtext -->
+            <p class="fade-in text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Experience blazing-fast servers with enterprise-grade security, NVMe storage, and 24/7 expert support. Deploy in seconds, scale without limits.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="fade-in flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#plans" class="group relative px-8 py-4 bg-gradient-to-r from-cyan to-blue-600 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,163,255,0.3)] hover:scale-105">
+                    <span class="relative z-10">View Plans</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan to-blue-600 rounded-xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                </a>
+                <a href="https://t.me/Senkaizen" target="_blank" class="px-8 py-4 border-2 border-gray-600 hover:border-cyan rounded-xl font-semibold text-lg text-gray-300 hover:text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,163,255,0.1)]">
+                    Contact Telegram →
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- STATS SECTION -->
+    <section class="py-24 px-4 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <!-- Stat 1 -->
+                <div class="glass-card neon-border rounded-2xl p-6 md:p-8 text-center fade-in">
+                    <div class="text-3xl md:text-5xl font-black text-cyan mb-2">
+                        <span class="counter" data-target="4">0</span>+
+                    </div>
+                    <p class="text-gray-400 text-sm md:text-base font-medium">Years Experience</p>
+                </div>
+                <!-- Stat 2 -->
+                <div class="glass-card neon-border rounded-2xl p-6 md:p-8 text-center fade-in">
+                    <div class="text-3xl md:text-5xl font-black text-mint mb-2">
+                        <span class="counter" data-target="5000">0</span>+
+                    </div>
+                    <p class="text-gray-400 text-sm md:text-base font-medium">Servers Deployed</p>
+                </div>
+                <!-- Stat 3 -->
+                <div class="glass-card neon-border rounded-2xl p-6 md:p-8 text-center fade-in">
+                    <div class="text-3xl md:text-5xl font-black text-amber mb-2">
+                        <span class="counter" data-target="99.9" data-decimals="1">0</span>%
+                    </div>
+                    <p class="text-gray-400 text-sm md:text-base font-medium">Uptime Guarantee</p>
+                </div>
+                <!-- Stat 4 -->
+                <div class="glass-card neon-border rounded-2xl p-6 md:p-8 text-center fade-in">
+                    <div class="text-3xl md:text-5xl font-black text-purple-400 mb-2">
+                        <span class="counter" data-target="24">0</span>/7
+                    </div>
+                    <p class="text-gray-400 text-sm md:text-base font-medium">Expert Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FEATURES SECTION -->
+    <section class="py-24 px-4 relative grid-pattern">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    Why Choose <span class="gradient-text">Kaizen</span>?
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Enterprise infrastructure at unbeatable prices. Every server comes loaded with premium features.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan/20 to-blue-600/20 rounded-xl flex items-center justify-center mb-5 border border-cyan/10">
+                        <svg class="w-7 h-7 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">NVMe SSD Storage</h3>
+                    <p class="text-gray-400 leading-relaxed">Lightning-fast NVMe drives delivering up to 7000MB/s read speeds. Your applications will fly.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-mint/20 to-emerald-600/20 rounded-xl flex items-center justify-center mb-5 border border-mint/10">
+                        <svg class="w-7 h-7 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">DDoS Protection</h3>
+                    <p class="text-gray-400 leading-relaxed">Enterprise-grade DDoS mitigation with automatic threat detection. Stay online, always.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-amber/20 to-orange-600/20 rounded-xl flex items-center justify-center mb-5 border border-amber/10">
+                        <svg class="w-7 h-7 text-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Full Root Access</h3>
+                    <p class="text-gray-400 leading-relaxed">Complete control over your server. Install anything, configure everything. It's truly yours.</p>
+                </div>
+
+
+                <!-- Feature 4 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400/20 to-purple-600/20 rounded-xl flex items-center justify-center mb-5 border border-purple-400/10">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Instant Setup</h3>
+                    <p class="text-gray-400 leading-relaxed">Server deployed within minutes after payment. No waiting, no delays. Start building immediately.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-pink-400/20 to-rose-600/20 rounded-xl flex items-center justify-center mb-5 border border-pink-400/10">
+                        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Global Locations</h3>
+                    <p class="text-gray-400 leading-relaxed">Servers across multiple continents. Choose the location closest to your audience for minimal latency.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="glass-card neon-border rounded-2xl p-8 fade-in">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan/20 to-mint/20 rounded-xl flex items-center justify-center mb-5 border border-cyan/10">
+                        <svg class="w-7 h-7 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">24/7 Support</h3>
+                    <p class="text-gray-400 leading-relaxed">Our expert team is available around the clock via Telegram. Get help within minutes, not hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PLANS SECTION -->
+    <section id="plans" class="py-24 px-4 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    Server <span class="gradient-text">Plans</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Choose the perfect plan for your needs. All plans include premium features and dedicated support.</p>
+            </div>
+
+            <div id="plans-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loading skeleton -->
+                <div class="shimmer rounded-2xl h-96"></div>
+                <div class="shimmer rounded-2xl h-96"></div>
+                <div class="shimmer rounded-2xl h-96"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800/50 py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="mb-6">
+                <span class="text-2xl font-black gradient-text">Kaizen VPS</span>
+            </div>
+            <p class="text-gray-500 mb-4">Premium VPS & RDP Hosting Solutions</p>
+            <a href="https://t.me/Senkaizen" target="_blank" class="inline-flex items-center gap-2 text-cyan hover:text-white transition-colors duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                @Senkaizen
+            </a>
+            <p class="text-gray-600 text-sm mt-6">&copy; 2024 Kaizen VPS Server. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING TELEGRAM BUTTON -->
+    <a href="https://t.me/Senkaizen" target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-mint rounded-full text-white font-semibold shadow-2xl shadow-mint/20 pulse-ring hover:scale-110 transition-transform duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+        Chat on Telegram
+    </a>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Animated counters
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.target);
+            const decimals = parseInt(el.dataset.decimals) || 0;
+            const duration = 2000;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = target * easeOut;
+
+                el.textContent = decimals > 0 ? current.toFixed(decimals) : Math.floor(current);
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+
+        // Fetch and render plans
+        async function loadPlans() {
+            const container = document.getElementById('plans-container');
+            try {
+                const response = await fetch('/api/plans');
+                const plans = await response.json();
+
+                if (!plans || plans.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-20">
+                            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-cyan/10 to-mint/10 flex items-center justify-center border border-cyan/20">
+                                <svg class="w-10 h-10 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Coming Soon</h3>
+                            <p class="text-gray-400 max-w-md mx-auto">We're preparing amazing plans for you. Contact us on Telegram for custom solutions.</p>
+                            <a href="https://t.me/Senkaizen" target="_blank" class="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-cyan to-blue-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(0,163,255,0.3)] transition-all duration-300">
+                                Contact Us
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = plans.map(plan => `
+                    <div class="plan-card rounded-2xl p-6 md:p-8 flex flex-col fade-in">
+                        ${plan.badge ? `<div class="inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan/20 to-mint/20 text-cyan border border-cyan/20 mb-4">${plan.badge}</div>` : ''}
+                        
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">${plan.name}</h3>
+                        
+                        <div class="mb-5">
+                            <span class="text-3xl md:text-4xl font-black text-amber">${plan.price}</span>
+                        </div>
+
+                        ${plan.locations ? `
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                ${plan.locations.map(loc => `
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 text-sm text-gray-300 border border-white/5">
+                                        ${loc}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+
+                        ${plan.specs ? `
+                            <div class="flex-1 mb-6">
+                                <div class="space-y-2.5">
+                                    ${Object.entries(plan.specs).map(([key, value]) => `
+                                        <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                            <span class="text-gray-400 text-sm">${key}</span>
+                                            <span class="text-white font-medium text-sm">${value}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            ${plan.validity ? `<span class="px-3 py-1 rounded-lg bg-mint/10 text-mint text-xs font-semibold border border-mint/20">⏱ ${plan.validity}</span>` : ''}
+                            ${plan.warranty ? `<span class="px-3 py-1 rounded-lg bg-amber/10 text-amber text-xs font-semibold border border-amber/20">🛡 ${plan.warranty}</span>` : ''}
+                        </div>
+
+                        <a href="https://t.me/Senkaizen" target="_blank" class="mt-auto block text-center px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-mint rounded-xl font-semibold text-white hover:shadow-[0_0_30px_rgba(45,212,191,0.3)] hover:scale-[1.02] transition-all duration-300">
+                            DM to Buy
+                        </a>
+                    </div>
+                `).join('');
+
+                // Re-observe new fade-in elements
+                container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-20">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-cyan/10 to-mint/10 flex items-center justify-center border border-cyan/20">
+                            <svg class="w-10 h-10 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Coming Soon</h3>
+                        <p class="text-gray-400 max-w-md mx-auto">We're preparing amazing plans for you. Contact us on Telegram for custom solutions.</p>
+                        <a href="https://t.me/Senkaizen" target="_blank" class="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-cyan to-blue-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(0,163,255,0.3)] transition-all duration-300">
+                            Contact Us
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        loadPlans();
+    </script>
 </body>
 </html>
