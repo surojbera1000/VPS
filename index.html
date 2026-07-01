@@ -2,7 +2,10 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a0e1a">
     <title>Kaizen VPS Server - Premium VPS & RDP Hosting</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,13 +118,68 @@
         .plan-card {
             background: linear-gradient(145deg, rgba(15, 22, 41, 0.9), rgba(10, 14, 26, 0.95));
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .plan-card:hover {
-            border-color: rgba(245, 158, 11, 0.3);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 80px rgba(245, 158, 11, 0.08), 0 0 40px rgba(0, 163, 255, 0.05);
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(var(--rgb-angle, 0deg), #ff0000, #ff8000, #ffff00, #00ff00, #00a3ff, #8000ff, #ff00ff, #ff0000);
+            background-size: 300% 300%;
+            animation: rgbRotate 4s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+        .plan-card:hover::before,
+        .plan-card:active::before,
+        .plan-card.tapped::before {
+            opacity: 1;
+        }
+        .plan-card:hover,
+        .plan-card:active,
+        .plan-card.tapped {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 10px 40px rgba(0, 163, 255, 0.15), 0 0 20px rgba(139, 0, 255, 0.1), 0 0 40px rgba(255, 0, 128, 0.05);
+        }
+        @keyframes rgbRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Tab buttons RGB border */
+        .filter-tab {
+            position: relative;
+            overflow: hidden;
+        }
+        .filter-tab::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: linear-gradient(90deg, #00a3ff, #2dd4bf, #f59e0b, #ff0080, #00a3ff);
+            background-size: 300% 100%;
+            animation: rgbRotate 3s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .filter-tab:hover::after,
+        .filter-tab:active::after {
+            opacity: 1;
         }
 
         /* Gradient text */
@@ -552,6 +610,15 @@
         }
 
         loadPlans();
+
+        // RGB tap effect on mobile
+        document.addEventListener('touchstart', function(e) {
+            const card = e.target.closest('.plan-card');
+            if (card) {
+                card.classList.add('tapped');
+                setTimeout(() => card.classList.remove('tapped'), 600);
+            }
+        });
     </script>
 </body>
 </html>
