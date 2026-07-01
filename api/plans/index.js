@@ -1,17 +1,16 @@
 const { MongoClient } = require("mongodb");
 
-let client = null;
-async function getDb() {
-  if (!client) {
-    client = new MongoClient(process.env.MONGODB_URI);
-    await client.connect();
-  }
-  return client.db("kaizen_vps");
+async function connectDb() {
+  const client = new MongoClient(process.env.MONGODB_URI);
+  await client.connect();
+  return client;
 }
 
 module.exports = async (req, res) => {
+  let client;
   try {
-    const db = await getDb();
+    client = await connectDb();
+    const db = client.db("kaizen_vps");
     const col = db.collection("plans");
 
     if (req.method === "GET") {
@@ -25,12 +24,13 @@ module.exports = async (req, res) => {
         return res.status(401).json({ error: "Unauthorized" });
       }
       const b = req.body;
+      if (!b || !b.name) return res.status(400).json({ error: "Invalid data" });
       const plan = {
-        name: b.name, category: b.category, price: Number(b.price),
-        currency: b.currency || "₹", badge: b.badge || null,
-        locations: b.locations || [], specs: b.specs || {},
-        validity: b.validity || "30 Days", warranty: b.warranty || "15 Days",
-        createdAt: new Date()
+        name: b.name, category: b.category || "bandwidth",
+        price: Number(b.price) || 0, currency: b.currency || "₹",
+        badge: b.badge || null, locations: b.locations || [],
+        specs: b.specs || {}, validity: b.validity || "30 Days",
+        warranty: b.warranty || "15 Days", createdAt: new Date()
       };
       const result = await col.insertOne(plan);
       plan._id = result.insertedId;
@@ -39,6 +39,8 @@ module.exports = async (req, res) => {
 
     return res.status(405).json({ error: "Method not allowed" });
   } catch (e) {
-    return res.status(500).json({ error: e.message });
+    return res.status(500).json({ error: e.message || "Server error" });
+  } finally {
+    if (client) await client.close();
   }
 };
