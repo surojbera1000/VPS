@@ -451,49 +451,66 @@
                     return;
                 }
 
-                container.innerHTML = plans.map(plan => `
-                    <div class="plan-card rounded-2xl p-6 md:p-8 flex flex-col fade-in">
-                        ${plan.badge ? `<div class="inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan/20 to-mint/20 text-cyan border border-cyan/20 mb-4">${plan.badge}</div>` : ''}
-                        
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">${plan.name}</h3>
-                        
-                        <div class="mb-5">
-                            <span class="text-3xl md:text-4xl font-black text-amber">${plan.price}</span>
-                        </div>
+                container.innerHTML = plans.map(plan => {
+                    const specEmojis = {ram:'💾',cpu:'⚙️',storage:'💿',bandwidth:'🌐',latency:'⏱️',speed:'⚡'};
+                    const specLabels = {ram:'RAM',cpu:'CPU',storage:'Storage',bandwidth:'Bandwidth',latency:'Latency',speed:'Speed'};
+                    const specsText = plan.specs ? Object.entries(plan.specs).map(([k,v])=>`${specLabels[k]||k}: ${v}`).join(' | ') : '';
+                    
+                    return `
+                    <div class="plan-card rounded-2xl p-6 flex flex-col fade-in relative overflow-hidden">
+                        <!-- Top badge -->
+                        ${plan.badge === 'popular' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-amber to-orange-500 text-black tracking-wider">⭐ POPULAR</span></div>' : ''}
+                        ${plan.badge === 'best' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-mint to-emerald-500 text-black tracking-wider">🔥 BEST OFFER</span></div>' : ''}
 
-                        ${plan.locations ? `
-                            <div class="flex flex-wrap gap-2 mb-5">
-                                ${plan.locations.map(loc => `
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 text-sm text-gray-300 border border-white/5">
-                                        ${loc}
-                                    </span>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-
-                        ${plan.specs ? `
-                            <div class="flex-1 mb-6">
-                                <div class="space-y-2.5">
-                                    ${Object.entries(plan.specs).map(([key, value]) => `
-                                        <div class="flex justify-between items-center py-2 border-b border-white/5">
-                                            <span class="text-gray-400 text-sm">${key}</span>
-                                            <span class="text-white font-medium text-sm">${value}</span>
-                                        </div>
-                                    `).join('')}
+                        <!-- Starter badge + Name + Price row -->
+                        <div class="mt-4 mb-4">
+                            <div class="inline-block px-3 py-1 rounded-lg bg-amber/10 border border-amber/20 text-xs font-semibold text-amber mb-3">⚡ ${plan.category === 'unlimited' ? 'Unlimited Pack' : plan.category === 'renewal' ? 'Renewal Pack' : 'Starter Pack'}</div>
+                            <div class="flex justify-between items-end">
+                                <h3 class="text-2xl font-bold text-white">${plan.name}</h3>
+                                <div class="text-right">
+                                    <span class="text-3xl font-black text-amber">₹${plan.price}</span>
+                                    <div class="text-xs text-gray-400">/month</div>
                                 </div>
                             </div>
-                        ` : ''}
-
-                        <div class="flex flex-wrap gap-2 mb-5">
-                            ${plan.validity ? `<span class="px-3 py-1 rounded-lg bg-mint/10 text-mint text-xs font-semibold border border-mint/20">⏱ ${plan.validity}</span>` : ''}
-                            ${plan.warranty ? `<span class="px-3 py-1 rounded-lg bg-amber/10 text-amber text-xs font-semibold border border-amber/20">🛡 ${plan.warranty}</span>` : ''}
                         </div>
 
-                        <a href="https://t.me/Senkaizen" target="_blank" class="mt-auto block text-center px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-mint rounded-xl font-semibold text-white hover:shadow-[0_0_30px_rgba(45,212,191,0.3)] hover:scale-[1.02] transition-all duration-300">
-                            DM to Buy
-                        </a>
-                    </div>
-                `).join('');
+                        <!-- Available Locations -->
+                        ${plan.locations && plan.locations.length ? `
+                        <div class="mb-5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                            <div class="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-2">AVAILABLE LOCATIONS</div>
+                            <div class="flex flex-wrap gap-2">
+                                ${plan.locations.map(loc => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 text-sm text-gray-200 border border-white/5">${loc}</span>`).join('')}
+                            </div>
+                        </div>` : ''}
+
+                        <!-- Specs with emojis -->
+                        ${plan.specs ? `
+                        <div class="flex-1 mb-5 space-y-0">
+                            ${Object.entries(plan.specs).map(([key, value]) => `
+                                <div class="flex justify-between items-center py-2.5 border-b border-white/5 last:border-0">
+                                    <span class="flex items-center gap-2 text-gray-400 text-sm"><span class="text-base">${specEmojis[key]||'📌'}</span> ${specLabels[key]||key}</span>
+                                    <span class="text-white font-semibold text-sm">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>` : ''}
+
+                        <!-- Validity & Warranty badges -->
+                        <div class="flex gap-2 mb-5">
+                            ${plan.validity ? `<span class="flex-1 text-center px-3 py-2 rounded-xl bg-cyan/5 border border-cyan/20 text-xs"><span class="text-cyan font-bold">⏰ VALIDITY</span><br><span class="text-white font-semibold">${plan.validity}</span></span>` : ''}
+                            ${plan.warranty ? `<span class="flex-1 text-center px-3 py-2 rounded-xl bg-amber/5 border border-amber/20 text-xs"><span class="text-amber font-bold">🛡️ WARRANTY</span><br><span class="text-white font-semibold">${plan.warranty}</span></span>` : ''}
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="flex gap-3">
+                            <button onclick="navigator.clipboard.writeText('${plan.name} - Kaizen VPS\\n${specsText.replace(/'/g,"\\'")}\\nPrice: ₹${plan.price}/mo\\nOrder: t.me/Senkaizen')" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-gray-300 border border-white/10 hover:border-cyan/30 hover:text-white hover:bg-white/5 transition-all">
+                                📋 Copy Specs
+                            </button>
+                            <a href="https://t.me/Senkaizen" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-mint hover:shadow-[0_0_25px_rgba(45,212,191,0.3)] hover:scale-[1.02] transition-all duration-300">
+                                💬 DM to Buy
+                            </a>
+                        </div>
+                    </div>`;
+                }).join('');
 
                 // Re-observe new fade-in elements
                 container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
