@@ -1,9 +1,12 @@
 import clientPromise from "@/lib/db";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 async function getPlans() {
   try {
     const client = await clientPromise;
+    if (!client) return [];
     const db = client.db("kaizen_vps");
     const plans = await db.collection("plans").find({}).sort({ createdAt: -1 }).toArray();
     return JSON.parse(JSON.stringify(plans));
@@ -61,10 +64,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <p>Kaizen VPS Server &copy; 2024</p>
-      </footer>
-
+      <footer className={styles.footer}><p>Kaizen VPS Server © 2024</p></footer>
       <a href="https://t.me/Senkaizen" target="_blank" className={styles.floatingBtn}>💬 Chat on Telegram</a>
     </main>
   );

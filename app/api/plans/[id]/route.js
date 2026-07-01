@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export async function PUT(request, { params }) {
   try {
     const auth = request.headers.get("authorization");
@@ -10,6 +12,7 @@ export async function PUT(request, { params }) {
     }
     const body = await request.json();
     const client = await clientPromise;
+    if (!client) return NextResponse.json({ error: "DB error" }, { status: 500 });
     const db = client.db("kaizen_vps");
     await db.collection("plans").updateOne(
       { _id: new ObjectId(params.id) },
@@ -28,6 +31,7 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const client = await clientPromise;
+    if (!client) return NextResponse.json({ error: "DB error" }, { status: 500 });
     const db = client.db("kaizen_vps");
     await db.collection("plans").deleteOne({ _id: new ObjectId(params.id) });
     return NextResponse.json({ success: true });

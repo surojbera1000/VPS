@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const client = await clientPromise;
+    if (!client) return NextResponse.json([]);
     const db = client.db("kaizen_vps");
     const plans = await db.collection("plans").find({}).sort({ createdAt: -1 }).toArray();
     return NextResponse.json(plans);
@@ -20,6 +23,7 @@ export async function POST(request) {
     }
     const body = await request.json();
     const client = await clientPromise;
+    if (!client) return NextResponse.json({ error: "DB not connected" }, { status: 500 });
     const db = client.db("kaizen_vps");
     const plan = {
       name: body.name,
