@@ -1,23 +1,22 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-async function connectDb() {
-  const client = new MongoClient(process.env.MONGODB_URI);
-  await client.connect();
-  return client;
-}
-
 module.exports = async (req, res) => {
   let client;
   try {
     const id = req.query.id;
-    if (!id) return res.status(400).json({ error: "ID required" });
+    if (!id) return res.status(400).json({ error: "Plan ID required" });
+
+    if (!process.env.MONGODB_URI) {
+      return res.status(500).json({ error: "MONGODB_URI not set" });
+    }
 
     const auth = req.headers.authorization;
     if (auth !== `Bearer ${process.env.ADMIN_PASSWORD}`) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    client = await connectDb();
+    client = new MongoClient(process.env.MONGODB_URI);
+    await client.connect();
     const db = client.db("kaizen_vps");
     const col = db.collection("plans");
 
@@ -31,18 +30,20 @@ module.exports = async (req, res) => {
           validity: b.validity, warranty: b.warranty, updatedAt: new Date()
         }
       });
+      await client.close();
       return res.status(200).json({ success: true });
     }
 
     if (req.method === "DELETE") {
       await col.deleteOne({ _id: new ObjectId(id) });
+      await client.close();
       return res.status(200).json({ success: true });
     }
 
+    await client.close();
     return res.status(405).json({ error: "Method not allowed" });
   } catch (e) {
-    return res.status(500).json({ error: e.message || "Server error" });
-  } finally {
-    if (client) await client.close();
+    if (client) try { await client.close(); } catch(x) {}
+    return res.status(500).json({ error: "DB Error: " + e.message });
   }
 };
