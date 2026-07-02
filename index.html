@@ -116,70 +116,42 @@
 
         /* Plan card specific */
         .plan-card {
-            background: linear-gradient(145deg, rgba(15, 22, 41, 0.9), rgba(10, 14, 26, 0.95));
+            background: linear-gradient(145deg, rgba(15, 22, 41, 0.95), rgba(10, 14, 26, 0.98));
             backdrop-filter: blur(20px);
-            border: 2px solid transparent;
-            background-clip: padding-box;
+            border: 1.5px solid rgba(0, 163, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 163, 255, 0.08), inset 0 0 30px rgba(0, 163, 255, 0.02);
             position: relative;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(var(--rgb-angle, 0deg), #ff0000, #ff8000, #ffff00, #00ff00, #00a3ff, #8000ff, #ff00ff, #ff0000);
-            background-size: 300% 300%;
-            animation: rgbRotate 4s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0.4;
-            transition: opacity 0.3s ease;
-        }
-        .plan-card:hover::before,
-        .plan-card:active::before,
-        .plan-card.tapped::before {
-            opacity: 1;
-        }
-        .plan-card:hover,
-        .plan-card:active,
-        .plan-card.tapped {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 10px 40px rgba(0, 163, 255, 0.15), 0 0 20px rgba(139, 0, 255, 0.1), 0 0 40px rgba(255, 0, 128, 0.05);
-        }
-        @keyframes rgbRotate {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .plan-card:hover, .plan-card:active {
+            border-color: rgba(0, 163, 255, 0.6);
+            box-shadow: 0 0 25px rgba(0, 163, 255, 0.2), 0 0 50px rgba(0, 163, 255, 0.05);
+            transform: translateY(-3px);
         }
 
-        /* Tab buttons RGB border */
-        .filter-tab {
-            position: relative;
-            overflow: hidden;
+        /* Filter tabs */
+        .ftab {
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1.5px solid rgba(0, 163, 255, 0.3);
+            color: #00a3ff;
+            background: rgba(0, 163, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
-        .filter-tab::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.5px;
-            background: linear-gradient(90deg, #00a3ff, #2dd4bf, #f59e0b, #ff0080, #00a3ff);
-            background-size: 300% 100%;
-            animation: rgbRotate 3s linear infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s;
+        .ftab:hover, .ftab:active {
+            background: rgba(0, 163, 255, 0.15);
+            border-color: rgba(0, 163, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 163, 255, 0.2);
         }
-        .filter-tab:hover::after,
-        .filter-tab:active::after {
-            opacity: 1;
+        .ftab.active {
+            background: linear-gradient(135deg, #00a3ff, #0077cc) !important;
+            color: #fff !important;
+            border-color: transparent !important;
+            box-shadow: 0 0 20px rgba(0, 163, 255, 0.3);
         }
 
         /* Gradient text */
@@ -407,22 +379,34 @@
 
 
     <!-- PLANS SECTION -->
-    <section id="plans" style="padding:10px 6px;">
-        <div>
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-black mb-2">
-                    Server <span class="gradient-text">Plans</span>
-                </h2>
-                <p class="text-gray-400 text-sm">Choose the perfect plan for your needs.</p>
+    <section id="plans" style="padding:8px 4px;">
+        <!-- Server icon + title -->
+        <div style="text-align:center;margin-bottom:16px;">
+            <div style="width:56px;height:56px;margin:0 auto 12px;border-radius:16px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:28px;">🖥️</span>
             </div>
-
-            <div id="plans-container" style="display:flex;flex-direction:column;gap:10px;width:100%;">
-                <!-- Loading skeleton -->
-                <div class="shimmer rounded-2xl h-96"></div>
-                <div class="shimmer rounded-2xl h-96"></div>
-                <div class="shimmer rounded-2xl h-96"></div>
-            </div>
+            <h2 style="font-size:24px;font-weight:800;margin-bottom:6px;font-family:'Inter',sans-serif;">Server <span style="color:#f59e0b;">P</span><span style="color:#00a3ff;">l</span><span style="color:#f59e0b;">a</span><span style="color:#2dd4bf;">n</span><span style="color:#f59e0b;">s</span></h2>
+            <p style="color:#94a3b8;font-size:13px;line-height:1.5;">Choose from our wide range of VPS and RDP servers. All plans include 24/7 support and guaranteed uptime.</p>
         </div>
+
+        <!-- Filter Tabs -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px;padding:0 4px;">
+            <button onclick="filterPlans('all')" class="ftab active" style="background:linear-gradient(135deg,#00a3ff,#0077cc);color:#fff;border:none;">🗄️ All Plans</button>
+            <button onclick="filterPlans('bandwidth')" class="ftab">🗄️ Bandwidth Limit</button>
+            <button onclick="filterPlans('renewal')" class="ftab">🔄 Renewal Servers</button>
+            <button onclick="filterPlans('unlimited')" class="ftab" style="position:relative;">⚡ Unlimited Bandwidth 🔥<span style="position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;font-size:8px;padding:1px 5px;border-radius:8px;font-weight:700;">NEW</span></button>
+        </div>
+
+        <!-- Category header (dynamic) -->
+        <div id="category-header" style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:0 6px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,163,255,0.1);border:1px solid rgba(0,163,255,0.2);display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:18px;">🗄️</span>
+            </div>
+            <h3 id="cat-title" style="font-size:18px;font-weight:700;font-family:'Inter',sans-serif;">All Plans</h3>
+        </div>
+
+        <!-- Plans container -->
+        <div id="plans-container" style="display:flex;flex-direction:column;gap:10px;width:100%;"></div>
     </section>
 
 
@@ -508,116 +492,88 @@
             try {
                 const response = await fetch('/api/plans');
                 const plans = await response.json();
-
-                if (!plans || plans.length === 0) {
-                    container.innerHTML = `
-                        <div class="col-span-full text-center py-20">
-                            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-cyan/10 to-mint/10 flex items-center justify-center border border-cyan/20">
-                                <svg class="w-10 h-10 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white mb-3">Coming Soon</h3>
-                            <p class="text-gray-400 max-w-md mx-auto">We're preparing amazing plans for you. Contact us on Telegram for custom solutions.</p>
-                            <a href="https://t.me/Senkaizen" target="_blank" class="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-cyan to-blue-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(0,163,255,0.3)] transition-all duration-300">
-                                Contact Us
-                            </a>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = plans.map(plan => {
-                    const specEmojis = {ram:'💾',cpu:'⚙️',storage:'💿',bandwidth:'🌐',latency:'⏱️',speed:'⚡'};
-                    const specLabels = {ram:'RAM',cpu:'CPU',storage:'Storage',bandwidth:'Bandwidth',latency:'Latency',speed:'Speed'};
-                    const specsText = plan.specs ? Object.entries(plan.specs).map(([k,v])=>`${specLabels[k]||k}: ${v}`).join(' | ') : '';
-                    
-                    return `
-                    <div class="plan-card rounded-2xl flex flex-col fade-in relative overflow-hidden" style="padding:16px 12px;width:100%;margin:0 auto;max-width:100%;">
-                        <!-- Top badge -->
-                        ${plan.badge === 'popular' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-amber to-orange-500 text-black tracking-wider">⭐ POPULAR</span></div>' : ''}
-                        ${plan.badge === 'best' ? '<div class="absolute top-0 left-1/2 -translate-x-1/2"><span class="inline-block px-4 py-1 rounded-b-xl text-xs font-bold uppercase bg-gradient-to-r from-mint to-emerald-500 text-black tracking-wider">🔥 BEST OFFER</span></div>' : ''}
-
-                        <!-- Starter badge + Name + Price row -->
-                        <div class="mt-4 mb-4">
-                            <div class="inline-block px-3 py-1 rounded-lg bg-amber/10 border border-amber/20 text-xs font-semibold text-amber mb-3">⚡ ${plan.category === 'unlimited' ? 'Unlimited Pack' : plan.category === 'renewal' ? 'Renewal Pack' : 'Starter Pack'}</div>
-                            <div class="flex justify-between items-end">
-                                <h3 class="text-2xl font-bold text-white">${plan.name}</h3>
-                                <div class="text-right">
-                                    <span class="text-3xl font-black text-amber">₹${plan.price}</span>
-                                    <div class="text-xs text-gray-400">/month</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Available Locations -->
-                        ${plan.locations && plan.locations.length ? `
-                        <div class="mb-5 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                            <div class="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-2">AVAILABLE LOCATIONS</div>
-                            <div class="flex flex-wrap gap-2">
-                                ${plan.locations.map(loc => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 text-sm text-gray-200 border border-white/5">${loc}</span>`).join('')}
-                            </div>
-                        </div>` : ''}
-
-                        <!-- Specs with emojis -->
-                        ${plan.specs ? `
-                        <div class="flex-1 mb-5 space-y-0">
-                            ${Object.entries(plan.specs).map(([key, value]) => `
-                                <div class="flex justify-between items-center border-b border-white/5" style="padding:7px 0;">
-                                    <span class="flex items-center gap-2 text-gray-400 text-sm"><span class="text-base">${specEmojis[key]||'📌'}</span> ${specLabels[key]||key}</span>
-                                    <span class="text-white font-semibold text-sm">${value}</span>
-                                </div>
-                            `).join('')}
-                        </div>` : ''}
-
-                        <!-- Validity & Warranty badges -->
-                        <div class="flex gap-2 mb-5">
-                            ${plan.validity ? `<span class="flex-1 text-center px-3 py-2 rounded-xl bg-cyan/5 border border-cyan/20 text-xs"><span class="text-cyan font-bold">⏰ VALIDITY</span><br><span class="text-white font-semibold">${plan.validity}</span></span>` : ''}
-                            ${plan.warranty ? `<span class="flex-1 text-center px-3 py-2 rounded-xl bg-amber/5 border border-amber/20 text-xs"><span class="text-amber font-bold">🛡️ WARRANTY</span><br><span class="text-white font-semibold">${plan.warranty}</span></span>` : ''}
-                        </div>
-
-                        <!-- Action buttons -->
-                        <div class="flex gap-3">
-                            <button onclick="navigator.clipboard.writeText('${plan.name} - Kaizen VPS\\n${specsText.replace(/'/g,"\\'")}\\nPrice: ₹${plan.price}/mo\\nOrder: t.me/Senkaizen')" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-gray-300 border border-white/10 hover:border-cyan/30 hover:text-white hover:bg-white/5 transition-all">
-                                📋 Copy Specs
-                            </button>
-                            <a href="https://t.me/Senkaizen" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-mint hover:shadow-[0_0_25px_rgba(45,212,191,0.3)] hover:scale-[1.02] transition-all duration-300">
-                                💬 DM to Buy
-                            </a>
-                        </div>
-                    </div>`;
-                }).join('');
-
-                // Re-observe new fade-in elements
-                container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
+                allPlans = plans || [];
+                renderPlans(allPlans);
             } catch (error) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-20">
-                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-cyan/10 to-mint/10 flex items-center justify-center border border-cyan/20">
-                            <svg class="w-10 h-10 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">Coming Soon</h3>
-                        <p class="text-gray-400 max-w-md mx-auto">We're preparing amazing plans for you. Contact us on Telegram for custom solutions.</p>
-                        <a href="https://t.me/Senkaizen" target="_blank" class="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-cyan to-blue-600 rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(0,163,255,0.3)] transition-all duration-300">
-                            Contact Us
-                        </a>
-                    </div>
-                `;
+                container.innerHTML = '<div style="text-align:center;padding:40px;color:#64748b;"><p>Contact us on Telegram for plans.</p></div>';
             }
         }
 
         loadPlans();
 
-        // RGB tap effect on mobile
+        // Filter plans by category
+        let allPlans = [];
+        function filterPlans(cat) {
+            document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            const catNames = {all:'All Plans', bandwidth:'Bandwidth-Limit Plans', unlimited:'Unlimited Bandwidth Plans 🔥', renewal:'Renewal Server Plans'};
+            const catEmojis = {all:'🗄️', bandwidth:'🗄️', unlimited:'⚡', renewal:'🔄'};
+            document.getElementById('cat-title').textContent = catNames[cat] || 'All Plans';
+            document.querySelector('#category-header span').textContent = catEmojis[cat] || '🗄️';
+            const filtered = cat === 'all' ? allPlans : allPlans.filter(p => p.category === cat);
+            renderPlans(filtered);
+        }
+
+        function renderPlans(plans) {
+            const container = document.getElementById('plans-container');
+            if (!plans || plans.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:40px 10px;color:#64748b;"><p style="font-size:16px;margin-bottom:8px;">🚀 Coming Soon!</p><p style="font-size:13px;">Contact us on Telegram for offers.</p></div>';
+                return;
+            }
+            const specEmojis = {ram:'🖥️',cpu:'⚙️',storage:'💾',bandwidth:'🌐',latency:'⏱️',speed:'⚡'};
+            const specLabels = {ram:'RAM',cpu:'CPU',storage:'Storage',bandwidth:'Bandwidth',latency:'Latency',speed:'Speed'};
+            container.innerHTML = plans.map(plan => {
+                const specsText = plan.specs ? Object.entries(plan.specs).map(([k,v])=>`${specLabels[k]||k}: ${v}`).join(' | ') : '';
+                return `
+                <div class="plan-card" style="border-radius:16px;padding:14px 12px;width:100%;">
+                    ${plan.badge === 'popular' ? '<div style="text-align:center;margin-bottom:8px;"><span style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;">⭐ POPULAR</span></div>' : ''}
+                    ${plan.badge === 'best' ? '<div style="text-align:center;margin-bottom:8px;"><span style="background:linear-gradient(135deg,#2dd4bf,#059669);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;">🔥 BEST OFFER</span></div>' : ''}
+                    
+                    <div style="display:inline-block;background:rgba(0,163,255,0.1);border:1px solid rgba(0,163,255,0.25);padding:4px 12px;border-radius:8px;margin-bottom:10px;">
+                        <span style="color:#00a3ff;font-size:12px;font-weight:600;">⚡ ${plan.category === 'unlimited' ? 'Unlimited Pack' : plan.category === 'renewal' ? 'Renewal Pack' : 'Starter Pack'}</span>
+                    </div>
+                    
+                    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;">
+                        <h3 style="font-size:20px;font-weight:800;font-family:'Inter',sans-serif;">${plan.name}</h3>
+                        <div style="text-align:right;">
+                            <span style="font-size:26px;font-weight:900;color:#f59e0b;font-family:'Inter',sans-serif;">₹${plan.price}</span>
+                            <div style="font-size:11px;color:#94a3b8;">/month</div>
+                        </div>
+                    </div>
+
+                    ${plan.locations && plan.locations.length ? `
+                    <div style="background:rgba(0,163,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;margin-bottom:12px;">
+                        <div style="font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">AVAILABLE LOCATIONS</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">${plan.locations.map(l => `<span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);padding:4px 10px;border-radius:8px;font-size:12px;">${l}</span>`).join('')}</div>
+                    </div>` : ''}
+
+                    <div style="margin-bottom:12px;">
+                        ${plan.specs ? Object.entries(plan.specs).map(([k,v]) => `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+                            <span style="display:flex;align-items:center;gap:8px;color:#94a3b8;font-size:13px;"><span style="font-size:15px;">${specEmojis[k]||'📌'}</span> ${specLabels[k]||k}</span>
+                            <span style="color:#fff;font-weight:600;font-size:13px;">${v}</span>
+                        </div>`).join('') : ''}
+                    </div>
+
+                    <div style="display:flex;gap:8px;margin-bottom:10px;">
+                        ${plan.validity ? `<div style="flex:1;text-align:center;padding:8px 6px;border-radius:10px;background:rgba(0,163,255,0.06);border:1px solid rgba(0,163,255,0.2);"><div style="color:#00a3ff;font-size:10px;font-weight:700;">⏰ VALIDITY</div><div style="color:#fff;font-size:12px;font-weight:600;margin-top:2px;">${plan.validity}</div></div>` : ''}
+                        ${plan.warranty ? `<div style="flex:1;text-align:center;padding:8px 6px;border-radius:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);"><div style="color:#f59e0b;font-size:10px;font-weight:700;">🛡️ WARRANTY</div><div style="color:#fff;font-size:12px;font-weight:600;margin-top:2px;">${plan.warranty}</div></div>` : ''}
+                    </div>
+
+                    <div style="display:flex;gap:8px;">
+                        <button onclick="navigator.clipboard.writeText('${plan.name} - Kaizen VPS\\n${specsText.replace(/'/g,"\\'")}\\nPrice: ₹${plan.price}/mo\\nOrder: t.me/Senkaizen');toast2('Copied!')" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#cbd5e1;font-size:12px;font-weight:600;cursor:pointer;">📋 Copy Specs</button>
+                        <a href="https://t.me/Senkaizen" target="_blank" style="flex:1;padding:10px;border-radius:10px;background:linear-gradient(135deg,#059669,#2dd4bf);color:#fff;font-size:12px;font-weight:600;text-align:center;text-decoration:none;">💬 DM to Buy</a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function toast2(m){const t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(45,212,191,0.2);border:1px solid rgba(45,212,191,0.4);color:#2dd4bf;padding:8px 20px;border-radius:10px;font-size:13px;z-index:999;';document.body.appendChild(t);setTimeout(()=>t.remove(),2000);}
+
+        // Mobile tap effect
         document.addEventListener('touchstart', function(e) {
             const card = e.target.closest('.plan-card');
-            if (card) {
-                card.classList.add('tapped');
-                setTimeout(() => card.classList.remove('tapped'), 600);
-            }
+            if (card) { card.style.borderColor = 'rgba(0,163,255,0.8)'; card.style.boxShadow = '0 0 30px rgba(0,163,255,0.3)'; setTimeout(() => { card.style.borderColor = ''; card.style.boxShadow = ''; }, 400); }
         });
     </script>
 </body>
